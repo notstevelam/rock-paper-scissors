@@ -16,46 +16,45 @@ loop this 5 times.
 // 2 - Paper
 // 3 - Scissors
 
-function playGame() {
-  let humanScore = 0;
-  let computerScore = 0;
-
-  // converts # choices to rock paper scissors string
-  function getSign(result) {
-    switch (result) {
-      case "1":
-        result = "rock";
-        break;
-      case "2":
-        result = "paper";
-        break;
-      case "3":
-        result = "scissors";
-        break;
-    }
-    return result;
+// helper function that converts # choices to rock paper scissors string
+function getSign(result) {
+  switch (result) {
+    case "1":
+      result = "rock";
+      break;
+    case "2":
+      result = "paper";
+      break;
+    case "3":
+      result = "scissors";
+      break;
   }
+  return result;
+}
 
+function playGame() {
   function getComputerChoice() {
     let random = Math.floor(Math.random() * 3) + 1; // picks number between 1-3
-    return getSign(random.toString()); // sends number to getSign to determine which sign it is
+    return getSign(random.toString()); // sends number to getSign to determine which sign it is. it converts to string because the human entry in getHumanChoice by default gets a string as well
   }
 
   function getHumanChoice() {
     let humanChoice = prompt(
       "Pick a number: 1 (Rock), 2 (Paper), 3 (Scissors)"
-    );
+    ); // asks users to pick a number
 
     if (humanChoice === "1" || humanChoice === "2" || humanChoice === "3") {
-      // console.log(getSign(humanChoice));
       return getSign(humanChoice);
     } else {
       console.log("sorry. not a valid choice.");
-      return getHumanChoice();
+      return getHumanChoice(); // asks user again if they don't pick a valid number
     }
   }
+  let humanScore = 0;
+  let computerScore = 0;
 
   for (let i = 0; i < 5; i++) {
+    // play the game 5 times
     const humanSelection = getHumanChoice();
     const computerSelection = getComputerChoice();
 
@@ -65,23 +64,25 @@ function playGame() {
       console.log("Round: ", i + 1);
 
       if (humanSelection === computerSelection) {
-        console.log("It's a tie!"); // both chose the same
+        // both chose the same
+        console.log("It's a tie!");
       } else if (
         (humanSelection === "rock" && computerSelection === "scissors") ||
         (humanSelection === "paper" && computerSelection === "rock") ||
         (humanSelection === "scissors" && computerSelection === "paper")
       ) {
         console.log("You win!");
-        humanScore++;
+        humanScore++; // score for human!
       } else {
         console.log("You lose!");
-        computerScore++;
+        computerScore++; // score for computer! boo.
       }
     }
 
     playRound(humanSelection, computerSelection);
 
     if (i === 4) {
+      // shows final score after 5 rounds. remember i starts at 0.
       console.log(
         "Final Score: Human: ",
         humanScore,
