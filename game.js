@@ -32,6 +32,16 @@ function getSign(result) {
   return result;
 }
 
+// utility function to update html with score results
+function changeHeading(humanWin, humanScore, computerScore) {
+  let whoWon = humanWin ? "You won!" : "You lost!";
+
+  document.querySelector("#heading").innerHTML = "Final Score:";
+  document.querySelector("#finalscore").innerHTML =
+    "Human: " + humanScore + " | " + "Computer: " + computerScore;
+  document.querySelector("#winner").innerHTML = whoWon;
+}
+
 function playGame() {
   function getComputerChoice() {
     let random = Math.floor(Math.random() * 3) + 1; // picks number between 1-3
@@ -45,6 +55,9 @@ function playGame() {
 
     if (humanChoice === "1" || humanChoice === "2" || humanChoice === "3") {
       return getSign(humanChoice);
+    } else if (humanChoice === "quit") {
+      console.log("You have chosen to quit! Loser!");
+      return;
     } else {
       console.log("sorry. not a valid choice.");
       return getHumanChoice(); // asks user again if they don't pick a valid number
@@ -83,19 +96,22 @@ function playGame() {
 
     if (i === 4) {
       // shows final score after 5 rounds. remember i starts at 0.
-      console.log(
-        "Final Score: Human: ",
-        humanScore,
-        "Computer: ",
-        computerScore
-      );
-      if (humanScore === computerScore) {
-        console.log("wow its a tie!");
-      } else if (humanScore > computerScore) {
+      let humanWon; // set true if you win
+
+      if (humanScore > computerScore) {
         console.log("You won ", humanScore, " of 5 matches. Congrats!");
+        humanWon = true;
       } else {
         console.log("You lost ", computerScore, " of 5 matches. You suck!");
+        humanWon = false;
       }
+      changeHeading(humanWon, humanScore, computerScore); // pass info to html display
     }
   }
 }
+
+//window.onload = playGame();\\
+
+window.onload = function () {
+  playGame();
+};
