@@ -1,21 +1,3 @@
-/*
-pseudocode:
-rock paper scissors game
-
-get the computers choice. 
-  - randomly choose a number between 1 and 3. store that function/variable.
-another function gets user to enter their choice.
-  - prompt user for input
-compare choices and see who wins. 
-adjust score. ignore if its a tie. 
-loop this 5 times.
-
-*/
-
-// 1 - Rock
-// 2 - Paper
-// 3 - Scissors
-
 // helper function that converts # choices to rock paper scissors string
 function getSign(result) {
   switch (result) {
