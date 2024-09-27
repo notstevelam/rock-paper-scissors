@@ -42,27 +42,26 @@ function changeHeading(humanWin, humanScore, computerScore) {
   document.querySelector("#winner").innerHTML = whoWon;
 }
 
+function getComputerChoice() {
+  let random = Math.floor(Math.random() * 3) + 1; // picks number between 1-3
+  return getSign(random.toString()); // sends number to getSign to determine which sign it is. it converts to string because the human entry in getHumanChoice by default gets a string as well
+}
+
+function getHumanChoice() {
+  let humanChoice = prompt("Pick a number: 1 (Rock), 2 (Paper), 3 (Scissors)"); // asks users to pick a number
+
+  if (humanChoice === "1" || humanChoice === "2" || humanChoice === "3") {
+    return getSign(humanChoice);
+  } else if (humanChoice === "quit") {
+    console.log("You have chosen to quit! Loser!");
+    return;
+  } else {
+    console.log("sorry. not a valid choice.");
+    return getHumanChoice(); // asks user again if they don't pick a valid number
+  }
+}
+
 function playGame() {
-  function getComputerChoice() {
-    let random = Math.floor(Math.random() * 3) + 1; // picks number between 1-3
-    return getSign(random.toString()); // sends number to getSign to determine which sign it is. it converts to string because the human entry in getHumanChoice by default gets a string as well
-  }
-
-  function getHumanChoice() {
-    let humanChoice = prompt(
-      "Pick a number: 1 (Rock), 2 (Paper), 3 (Scissors)"
-    ); // asks users to pick a number
-
-    if (humanChoice === "1" || humanChoice === "2" || humanChoice === "3") {
-      return getSign(humanChoice);
-    } else if (humanChoice === "quit") {
-      console.log("You have chosen to quit! Loser!");
-      return;
-    } else {
-      console.log("sorry. not a valid choice.");
-      return getHumanChoice(); // asks user again if they don't pick a valid number
-    }
-  }
   let humanScore = 0;
   let computerScore = 0;
 
@@ -109,8 +108,6 @@ function playGame() {
     }
   }
 }
-
-//window.onload = playGame();\\
 
 window.onload = function () {
   playGame();
